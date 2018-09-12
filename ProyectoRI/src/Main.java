@@ -13,6 +13,6 @@ public class Main {
         doc.outputSettings(outputSettings);
         String body = doc.text();
         //System.out.println(body);
-        System.out.println(Preprocessor.removeInvalidTerms(Preprocessor.removeTerms30("ÁÚÍÑ")));
+        System.out.println(Preprocessor.removeInvalidTerms(body));
     }
 }

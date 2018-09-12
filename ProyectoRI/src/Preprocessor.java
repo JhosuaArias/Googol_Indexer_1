@@ -16,11 +16,13 @@ public final class Preprocessor {
     private static final String LARGER_THAN_30_PATTERN = "[.^"+ SPANISH_WORD_PATTERN +"]{31,}";
 
     // Spanish articles
-    private static final String ARTICLES_PATTERN = "(el|los|la|las|un|unos|una|unas|lo)*";
+    private static final String ARTICLES_PATTERN = "\\b(el|los|la|las|un|unos|una|unas|lo)\\b";
 
     // Spanish prepositions
-    private static final String PREPOSITIONS_PATTERN = "(a|ante|bajo|cabe|con|contra|de|desde|durante|en|entre|hacia|hasta|mediante|para|por|según|sin|so|sobre|tras|versus|vía)*";
+    private static final String PREPOSITIONS_PATTERN = "\\b(a|ante|bajo|cabe|con|contra|de|desde|durante|en|entre|hacia|hasta|mediante|para|por|según|sin|so|sobre|tras|versus|vía)\\b";
 
+    //Words with numeric start
+    private static final String STREING_WITH_NUMERICAL_START = "\\b[0-9]+[a-z]+\\b";
     /**
      * Removes all words larger than 30 characters long.
      * @param document
@@ -38,5 +40,12 @@ public final class Preprocessor {
        String lowercase = document.toLowerCase(Locale.forLanguageTag("es"));
 
         return lowercase.replaceAll(INVALID_SYMBOLS_PATTERN,"");
+    }
+
+    public static String removeStopWords(String document) {
+        String noStopWords = document.replaceAll(ARTICLES_PATTERN,"");
+        noStopWords = noStopWords.replaceAll(PREPOSITIONS_PATTERN, "");
+
+        return noStopWords;
     }
 }
