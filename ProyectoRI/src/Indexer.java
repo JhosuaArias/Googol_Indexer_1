@@ -1,3 +1,6 @@
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,8 +17,11 @@ public class Indexer {
     public void indexFiles() {
         List<String> urls = FileHandler.readFileStringArray("./ProyectoRI/resources/URLS.txt");
         for(String string : urls){
-            string.split("\\s+");
+            String[] url = string.split("\\s+");
+            String html = FileHandler.readFileSB("./ProyectoRI/resources/" + url[0]);
+            Document doc = Jsoup.parse(html);
+            String body = doc.body().text();
+            System.out.println(body);
         }
     }
-
 }
