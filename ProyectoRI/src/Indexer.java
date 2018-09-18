@@ -18,7 +18,7 @@ public class Indexer {
         List<String> urls = FileHandler.readFileStringArray("./ProyectoRI/resources/URLS.txt");
         for(String string : urls){
             String[] url = string.split("\\s+");
-            String html = FileHandler.readFileSB("./ProyectoRI/resources/" + url[0]);
+            String html = FileHandler.readFileSB("./ProyectoRI/resources/htmls/" + url[0]);
             Document doc = Jsoup.parse(html);
             String body = doc.body().text();
             System.out.println(body);
