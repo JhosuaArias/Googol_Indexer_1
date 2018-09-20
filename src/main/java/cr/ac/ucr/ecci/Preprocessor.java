@@ -18,7 +18,7 @@ public final class Preprocessor {
     private static final String LARGER_THAN_30_PATTERN = "\\b\\S{31,}\\b";
 
     // Spanish articles
-    private static final String ARTICLES_PATTERN = "\\b(el|los|la|las|un|unos|una|unas|lo)\\b";
+    private static final String ARTICLES_PATTERN = "\\b(el|los|la|las|un|unos|una|unas|lo|al|del)\\b";
 
     // Spanish prepositions
     private static final String PREPOSITIONS_PATTERN = "\\b(a|ante|bajo|cabe|con|contra|de|desde|durante|en|entre|hacia|hasta|mediante|para|por|según|sin|so|sobre|tras|versus|vía)\\b";
