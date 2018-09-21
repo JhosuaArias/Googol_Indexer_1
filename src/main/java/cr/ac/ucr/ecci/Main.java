@@ -6,4 +6,5 @@ public class Main {
         Indexer i = new Indexer();
         i.indexFiles();
     }
+
 }

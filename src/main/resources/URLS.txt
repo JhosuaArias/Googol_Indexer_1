@@ -1,4 +1,4 @@
-Economia1.html https://www.bancomundial.org/es/country/costarica/overview
+﻿Economia1.html https://www.bancomundial.org/es/country/costarica/overview
 Economia2.html https://www.dinero.com/internacional/articulo/situacion-economica-y-social-de-costa-rica/255020
 Economia3.html https://www.elmundo.cr/elecciones-situacion-economica-costa-rica/
 Economia4.html https://www.ucr.ac.cr/noticias/2018/01/25/economia-de-costa-rica-crecera-a-ritmos-de-3-en-el-2018-el-dato-mas-bajo-desde-el-2015.html
@@ -48,7 +48,7 @@ Proy7.html https://www.xataka.com/especiales/21-proyectos-makers-con-arduino-y-r
 Proy8.html https://www.motorpasion.com/tecnologia/wifi-un-panel-a-lo-tesla-o-una-consola-retro-por-muy-poco-dinero-17-proyectos-para-usar-una-raspberry-pi-en-tu-coche
 Proy9.html https://www.xataka.com/accesorios/las-13-mejores-ideas-que-hemos-encontrado-hechas-con-raspberry-pi
 Proy10.html https://computerhoy.com/noticias/hardware/15-usos-raspberry-pi-que-no-sabias-que-podias-darle-74905
-﻿IA1.html https://es.wikipedia.org/wiki/Inteligencia_artificial
+IA1.html https://es.wikipedia.org/wiki/Inteligencia_artificial
 IA2.html https://www.technologyreview.es/s/7692/el-secreto-mas-oscuro-de-la-inteligencia-artificial-por-que-hace-lo-que-hace
 IA3.html https://www.xataka.com/entrevistas/doy-clases-de-etica-en-inteligencia-artificial-y-esto-es-lo-que-enseno-a-futuros-ingenieros
 IA4.html https://es.unesco.org/courier/2018-3/artificial-intelligence-between-myth-and-reality
