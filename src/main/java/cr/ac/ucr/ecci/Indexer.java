@@ -22,21 +22,23 @@ public class Indexer {
     }
 
     public void indexFiles() {
+
         List<String> urls = FileHandler.readFileStringArray("./src/main/resources/URLS.txt");
         for(String string : urls){
             this.documentCount++;
 
+            // Get the name and content of each document
             String[] url = string.split("\\s+");
-            String html = FileHandler.readFileSB("./src/main/resources/htmls/" + url[0]);
+            String htmlDocument = FileHandler.readFileSB("./src/main/resources/htmls/" + url[0]);
             String documentName = url[0].replaceAll("\\.html","");
 
-            Document doc = Jsoup.parse(html);
+            // Use Jsoup to remove unwanted HTML syntax
+            Document doc = Jsoup.parse(htmlDocument);
             String body = doc.body().text();
 
-            body = this.preproccesDocument(body);
-            System.out.println(documentName+":"+body);
-            this.proccessDocumentTerms(documentName,body);
-
+            body = this.preprocessDocument(body);
+            // System.out.println(documentName+" : "+body);
+            this.processDocumentTerms(documentName,body);
         }
     }
 
@@ -45,7 +47,7 @@ public class Indexer {
      * @param document the document to preprocess.
      * @return a preproccesed document.
      */
-    private String preproccesDocument(String document){
+    private String preprocessDocument(String document){
         document = Preprocessor.removeTerms30(document);
         document = Preprocessor.toLowerCase(document);
         document = Preprocessor.removeInvalidTerms(document);
@@ -55,36 +57,47 @@ public class Indexer {
         return document;
     }
 
-    private void proccessDocumentTerms(String documentsName, String allTerms){
+    private void processDocumentTerms(String documentName, String allTerms){
 
-        WebDocument newDocument = new WebDocument(documentsName);
+        WebDocument newDocument = new WebDocument(documentName);
+        int maxFrequency = 0;
+        TermData termData;
 
-        String[] splitedTerms = allTerms.split("\\s+");
-        Map<String,TermData> documentVocabulary;
-        for (String term : splitedTerms) {
-            this.addToMap(newDocument.getDocumentName(), term);
-            newDocument.addToMap(term);
+        String[] splitTerms = allTerms.split("\\s+");
+
+        for (String term : splitTerms) {
+            termData = this.addToVocabulary(newDocument.getDocumentName(), term);
+            newDocument.addTerm(termData);
+
+            if(termData.getFrequencyInDocument(documentName) > maxFrequency){
+                maxFrequency = termData.getFrequencyInDocument(documentName);
+            }
         }
 
+        newDocument.setMaxFrequency(maxFrequency);
         this.allDocuments.add(newDocument.getDocumentName());
+
+        System.out.println("Documents: "+documentName+", maxFrequency: "+maxFrequency);
 
         //TODO write a method in FileHandler to make the .tok
     }
 
     /**
-     * Verifies if a term is in the vocabulary, otherwise, this adds that term to de map
+     * Verifies if a term is in the vocabulary, otherwise, this adds that term to the map
      * @param term the term to verify
      */
-    private void addToMap(String document, String term){
+    private TermData addToVocabulary(String documentName, String term){
+        TermData newTerm;
+
         if(this.vocabulary.containsKey(term)) {
-            this.vocabulary.get(term).sumTimesAppeared();
-            this.vocabulary.get(term).addDocument(document);
+            newTerm = this.vocabulary.get(term);
         }else{
-            TermData newTerm = new TermData(term);
-            newTerm.addDocument(document);
+            newTerm = new TermData(term);
             this.vocabulary.put(term,newTerm);
         }
 
+        newTerm.addOccurrenceInDocument(documentName);
+        return newTerm;
     }
 
 }

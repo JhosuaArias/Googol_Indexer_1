@@ -1,41 +1,42 @@
 package cr.ac.ucr.ecci;
 
-import java.lang.annotation.Documented;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TermData {
     private String term;
-    private ArrayList<String> documents;
+    private HashMap<String, Integer> frequencyPerDocument;
 
-    private int frecuencyinDocument;
-
-    //Times appeared in all documents (n_i)
-    private int timesAppeared;
+    // Frequency in all documentNames (n_i)
+    private int frequencyInCollection;
 
     public TermData(String term) {
         this.setTerm(term);
-        this.setDocuments(new ArrayList<>());
-        this.setTimesAppeared(1);
-        this.setFrecuencyinDocument(1);
+        this.frequencyPerDocument = new HashMap<>();
+        this.setFrequencyInCollection(1);
     }
 
-
-
-    public double normalizeFrecuency(double max_frec){
-        return ((double)this.getFrecuencyinDocument()) /max_frec;
+    public double normalizeFrequency(String documentName, double maxFrequency){
+        return ((double)this.frequencyPerDocument.get(documentName)) / maxFrequency;
     }
 
     public void sumTimesAppeared(){
-        this.timesAppeared++;
+        this.frequencyInCollection++;
     }
 
-    public void sumFrecuencyDocument() {
-        this.frecuencyinDocument++;
-    }
+    /**
+     * Registers the occurrence of a term in a document, to calculate statistics later.
+     * @param documentName the title of the document.
+     */
+    public void addOccurrenceInDocument(String documentName){
+        // Increase the global frequency
+        frequencyInCollection++;
 
-    public void addDocument(String document){
-        if (!this.documents.contains(document)) {
-            this.documents.add(document);
+        // Increase the frequency in the specific document
+        if (!this.frequencyPerDocument.containsKey(documentName)) {
+            this.frequencyPerDocument.put(documentName, 1);
+        } else {
+            this.frequencyPerDocument.put(documentName, this.frequencyPerDocument.get(documentName)+1);
         }
     }
 
@@ -48,27 +49,15 @@ public class TermData {
         this.term = term;
     }
 
-    public ArrayList<String> getDocuments() {
-        return documents;
+    public int getFrequencyInCollection() {
+        return frequencyInCollection;
     }
 
-    public void setDocuments(ArrayList<String> documents) {
-        this.documents = documents;
+    public void setFrequencyInCollection(int frequencyInCollection) {
+        this.frequencyInCollection = frequencyInCollection;
     }
 
-    public int getTimesAppeared() {
-        return timesAppeared;
-    }
-
-    public void setTimesAppeared(int timesAppeared) {
-        this.timesAppeared = timesAppeared;
-    }
-
-    public int getFrecuencyinDocument() {
-        return frecuencyinDocument;
-    }
-
-    public void setFrecuencyinDocument(int frecuencyinDocument) {
-        this.frecuencyinDocument = frecuencyinDocument;
+    public int getFrequencyInDocument(String documentName) {
+        return frequencyPerDocument.get(documentName);
     }
 }
