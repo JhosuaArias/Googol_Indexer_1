@@ -3,8 +3,14 @@ package cr.ac.ucr.ecci;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Holds all the data relevant to one term in the collection.
+ */
 public class TermData {
+    // A String representation of the term
     private String term;
+
+    // The occurrences of the term in each document in the collection
     private HashMap<String, Integer> frequencyPerDocument;
 
     // Frequency in all documentNames (n_i)
@@ -20,13 +26,11 @@ public class TermData {
         return ((double)this.frequencyPerDocument.get(documentName)) / maxFrequency;
     }
 
-    public void sumTimesAppeared(){
-        this.frequencyInCollection++;
-    }
-
     /**
      * Registers the occurrence of a term in a document, to calculate statistics later.
-     * @param documentName the title of the document.
+     * Adds 1 to the frequency in all the collection and to the entry in the map of a specific document.
+     *
+     * @param documentName the title of the document in which the term occurred.
      */
     public void addOccurrenceInDocument(String documentName){
         // Increase the global frequency

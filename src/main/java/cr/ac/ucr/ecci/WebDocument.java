@@ -2,11 +2,19 @@ package cr.ac.ucr.ecci;
 
 import java.util.ArrayList;
 
+/**
+ * Holds all the data relevant to a document in the collection.
+ */
 public class WebDocument {
 
-    private int maxFrequency;
+    // A string representation of the document's title
     private String documentName;
+
+    // Holds each term in the collection.
     private ArrayList<TermData> terms;
+
+    // The frequency of the term with the highest frequency in the collection.
+    private int maxFrequency;
 
     public WebDocument(String documentName) {
         this.setDocumentName(documentName);
@@ -15,7 +23,7 @@ public class WebDocument {
     }
 
     /**
-     * Verifies if a term is in the vocabulary, otherwise, this adds that term to de map
+     * Adds a term to this document's term list.
      * @param term the term to verify
      */
     public void addTerm(TermData term){

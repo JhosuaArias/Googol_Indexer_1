@@ -10,22 +10,20 @@ import java.util.Map;
 
 public class Indexer {
 
-    private int documentCount;
-    private int termCount;
     private Map<String, TermData> vocabulary;
-    private ArrayList<String> allDocuments;
+    private ArrayList<WebDocument> allDocuments;
 
     public Indexer() {
-        this.documentCount = 0;
         this.vocabulary = new HashMap<>();
         this.allDocuments = new ArrayList<>();
     }
 
+    /**
+     * Iterates through each document in the collection, storing and calculating the necessary information.
+     */
     public void indexFiles() {
-
         List<String> urls = FileHandler.readFileStringArray("./src/main/resources/URLS.txt");
         for(String string : urls){
-            this.documentCount++;
 
             // Get the name and content of each document
             String[] url = string.split("\\s+");
@@ -37,7 +35,7 @@ public class Indexer {
             String body = doc.body().text();
 
             body = this.preprocessDocument(body);
-            // System.out.println(documentName+" : "+body);
+            System.out.println(documentName+" : "+body);
             this.processDocumentTerms(documentName,body);
         }
     }
@@ -57,8 +55,13 @@ public class Indexer {
         return document;
     }
 
+    /**
+     * Iterates through each term in the document, storing metadata like the number of its occurrences in the document
+     * and in the collection.
+     * @param documentName the name of the document whose terms will be parsed.
+     * @param allTerms     the terms in the document.
+     */
     private void processDocumentTerms(String documentName, String allTerms){
-
         WebDocument newDocument = new WebDocument(documentName);
         int maxFrequency = 0;
         TermData termData;
@@ -75,16 +78,18 @@ public class Indexer {
         }
 
         newDocument.setMaxFrequency(maxFrequency);
-        this.allDocuments.add(newDocument.getDocumentName());
+        this.allDocuments.add(newDocument);
 
-        System.out.println("Documents: "+documentName+", maxFrequency: "+maxFrequency);
-
-        //TODO write a method in FileHandler to make the .tok
+        System.out.println("Document: "+documentName+", maxFrequency: "+maxFrequency);
     }
 
     /**
-     * Verifies if a term is in the vocabulary, otherwise, this adds that term to the map
-     * @param term the term to verify
+     * Adds a term to the collection's vocabulary.
+     * If a term is already registered in the vocabulary map, its number of occurrences is updated.
+     * Otherwise, a new TermData object is created to represent that term.
+     * @param documentName
+     * @param term
+     * @return a TermData object that represents the term
      */
     private TermData addToVocabulary(String documentName, String term){
         TermData newTerm;
