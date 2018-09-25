@@ -1,5 +1,7 @@
 package cr.ac.ucr.ecci;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -11,6 +13,7 @@ import java.util.Map;
 public class Indexer {
 
     private Map<String, TermData> vocabulary;
+    private static final Logger LOG = LogManager.getLogger(Indexer.class.getName());
     private ArrayList<WebDocument> allDocuments;
 
     public Indexer() {
@@ -27,16 +30,20 @@ public class Indexer {
 
             // Get the name and content of each document
             String[] url = string.split("\\s+");
-            String htmlDocument = FileHandler.readFileSB("./src/main/resources/htmls/" + url[0]);
-            String documentName = url[0].replaceAll("\\.html","");
+            String htmlName = url[0];
+            htmlName = htmlName.replaceAll("\\s+", "")
+                    .replaceAll("\\n", "");
+
+            String htmlDocument = FileHandler.readFileSB("./src/main/resources/htmls/" + htmlName);
+            String documentName = htmlName.replaceAll("\\.html","");
 
             // Use Jsoup to remove unwanted HTML syntax
             Document doc = Jsoup.parse(htmlDocument);
             String body = doc.body().text();
+            LOG.info("Read " + htmlName);
 
             body = this.preprocessDocument(body);
-            System.out.println(documentName+" : "+body);
-            this.processDocumentTerms(documentName,body);
+            this.processDocumentTerms(documentName, body);
         }
     }
 
@@ -80,7 +87,7 @@ public class Indexer {
         newDocument.setMaxFrequency(maxFrequency);
         this.allDocuments.add(newDocument);
 
-        System.out.println("Document: "+documentName+", maxFrequency: "+maxFrequency);
+        LOG.info("Document: "+documentName+", maxFrequency: "+maxFrequency);
     }
 
     /**
