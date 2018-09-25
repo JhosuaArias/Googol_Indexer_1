@@ -1,9 +1,11 @@
 package cr.ac.ucr.ecci;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
@@ -45,6 +47,105 @@ public class FileHandler {
 
     private static void appendStringArray(String line) {
         stringArray.add(line);
+    }
+
+    /**
+     * Writes a .tok file to represent a document, using the following format:
+     *  - 30 chars for the term
+     *  - 12 chars for the frequency of the term in the document
+     *  - 20 normalized frequency in the document
+     * And a blank space between each column, with a line skip and the end.
+     *
+     * @param document the document to be represented in the format above.
+     */
+    public static void writeDocumentTok(WebDocument document) {
+        List<String> lines = new ArrayList<>();
+
+        for(TermData termData : document.getTerms()) {
+
+            // Write the term and pad with enough blank spaces
+            StringBuilder termColumn = new StringBuilder(termData.getTerm());
+            termColumn = FileHandler.padString(termColumn, 31); // 31 to account for blank space
+
+            // Write the frequency and pad, same as above
+            StringBuilder frequencyColumn = new StringBuilder(termData.getFrequencyInDocument(document.getDocumentName()).toString());
+            frequencyColumn = FileHandler.padString(frequencyColumn, 13); // 13 to account for blank space
+
+            // Calculate max frequency
+            Double maxFrequency = termData.normalizeFrequency(document.getDocumentName(),document.getMaxFrequency());
+
+            // Write the normalized frequency
+            StringBuilder normalizedFrequencyColumn = new StringBuilder(maxFrequency.toString());
+            normalizedFrequencyColumn = FileHandler.padString(normalizedFrequencyColumn, 20); // this line should not have an extra space
+
+            // Concatenate and add the line skip
+            String line = termColumn.toString() + frequencyColumn.toString() + normalizedFrequencyColumn.toString();
+            lines.add(line);
+        }
+
+        // Add the line skip at the end
+        lines.add("\n");
+
+        try {
+            Files.write(Paths.get("src","main","resources","toks",document.getDocumentName()+".tok").toAbsolutePath(), lines, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Writes a .tok file to represent a each term in all the collection, using the following format:
+     *  - 30 chars for the term
+     *  - 12 chars for amount of documents where the term appears
+     *  - 20 for the inverse frequency
+     *
+     * And a blank space between each column, with a line skip and the end.
+     * @param vocabulary
+     */
+    public static void writeVocabularyFile(Collection<TermData> vocabulary, int documentCount) {
+        List<String> lines = new ArrayList<>();
+
+        for(TermData termData : vocabulary) {
+
+            // Write the term and pad with enough blank spaces
+            StringBuilder termColumn = new StringBuilder(termData.getTerm());
+            termColumn = FileHandler.padString(termColumn, 31); // 31 to account for blank space
+
+            // Write the document count
+            StringBuilder frequencyColumn = new StringBuilder(termData.getDocumentCount().toString());
+            frequencyColumn = FileHandler.padString(frequencyColumn, 13); // 13 to account for blank space
+
+            // Calculate the inverse frequency
+            Double inverseFrequency = Math.log10(termData.getFrequencyInCollection()/documentCount);
+
+            // Write the normalized frequency
+            StringBuilder normalizedFrequencyColumn = new StringBuilder(inverseFrequency.toString());
+            normalizedFrequencyColumn = FileHandler.padString(normalizedFrequencyColumn, 20); // this line should not have an extra space
+
+            // Concatenate and add the line skip
+            String line = termColumn.toString() + frequencyColumn.toString() + normalizedFrequencyColumn.toString();
+            lines.add(line);
+        }
+
+        try {
+            Files.write(Paths.get("src","main","resources","Vocabulario.tok").toAbsolutePath(), lines, StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Adds enough blank spaces to make stringBuilder have a length equal to padding.
+     * @param stringBuilder
+     * @param padding
+     * @return
+     */
+    private static StringBuilder padString(StringBuilder stringBuilder, int padding) {
+        int initialLength = stringBuilder.length();
+        for(int i = 0; i < padding-initialLength; i++) {
+            stringBuilder.append(" ");
+        }
+        return stringBuilder;
     }
 
 }

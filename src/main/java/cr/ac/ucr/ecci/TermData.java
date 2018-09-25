@@ -14,7 +14,7 @@ public class TermData {
     private HashMap<String, Integer> frequencyPerDocument;
 
     // Frequency in all documentNames (n_i)
-    private int frequencyInCollection;
+    private Integer frequencyInCollection;
 
     public TermData(String term) {
         this.setTerm(term);
@@ -45,6 +45,10 @@ public class TermData {
     }
 
     /**Getters and Setters**/
+    public Integer getDocumentCount() {
+        return this.frequencyPerDocument.size();
+    }
+
     public String getTerm() {
         return term;
     }
@@ -61,7 +65,7 @@ public class TermData {
         this.frequencyInCollection = frequencyInCollection;
     }
 
-    public int getFrequencyInDocument(String documentName) {
+    public Integer getFrequencyInDocument(String documentName) {
         return frequencyPerDocument.get(documentName);
     }
 }

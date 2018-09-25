@@ -11,7 +11,7 @@ import java.util.Map;
 public class Indexer {
 
     private Map<String, TermData> vocabulary;
-    private ArrayList<WebDocument> allDocuments;
+    private List<WebDocument> allDocuments;
 
     public Indexer() {
         this.vocabulary = new HashMap<>();
@@ -35,9 +35,11 @@ public class Indexer {
             String body = doc.body().text();
 
             body = this.preprocessDocument(body);
-            System.out.println(documentName+" : "+body);
+            //System.out.println(documentName+" : "+body);
             this.processDocumentTerms(documentName,body);
         }
+
+        FileHandler.writeVocabularyFile(this.vocabulary.values(), this.allDocuments.size());
     }
 
     /**
@@ -62,25 +64,27 @@ public class Indexer {
      * @param allTerms     the terms in the document.
      */
     private void processDocumentTerms(String documentName, String allTerms){
-        WebDocument newDocument = new WebDocument(documentName);
+        WebDocument document = new WebDocument(documentName);
         int maxFrequency = 0;
         TermData termData;
 
         String[] splitTerms = allTerms.split("\\s+");
 
         for (String term : splitTerms) {
-            termData = this.addToVocabulary(newDocument.getDocumentName(), term);
-            newDocument.addTerm(termData);
+            termData = this.addToVocabulary(document.getDocumentName(), term);
+            document.addTerm(termData);
 
             if(termData.getFrequencyInDocument(documentName) > maxFrequency){
                 maxFrequency = termData.getFrequencyInDocument(documentName);
             }
         }
 
-        newDocument.setMaxFrequency(maxFrequency);
-        this.allDocuments.add(newDocument);
+        document.setMaxFrequency(maxFrequency);
+        this.allDocuments.add(document);
 
-        System.out.println("Document: "+documentName+", maxFrequency: "+maxFrequency);
+        FileHandler.writeDocumentTok(document);
+
+        //System.out.println("Document: "+documentName+", maxFrequency: "+maxFrequency);
     }
 
     /**
