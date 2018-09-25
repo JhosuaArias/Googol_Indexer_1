@@ -57,7 +57,7 @@ public class FileHandler {
         }
 
         if (!fileDecoded) {
-            LOG.error("None of the supported encodings where appropriate, exiting program");
+            LOG.error("None of the supported encodings were appropriate, exiting program");
             System.exit(99);
         }
 
