@@ -30,21 +30,20 @@ public class Indexer {
 
             // Get the name and content of each document
             String[] url = string.split("\\s+");
-            url[0] = url[0].replaceAll("\\s+", "");
-            url[0] = url[0].replaceAll("\\n", "");
-            String html = FileHandler.readFileSB("./src/main/resources/htmls/" + url[0]);
-            Document doc = Jsoup.parse(html);
-            String htmlDocument = FileHandler.readFileSB("./src/main/resources/htmls/" + url[0]);
-            String documentName = url[0].replaceAll("\\.html","");
+            String htmlName = url[0];
+            htmlName = htmlName.replaceAll("\\s+", "")
+                    .replaceAll("\\n", "");
+
+            String htmlDocument = FileHandler.readFileSB("./src/main/resources/htmls/" + htmlName);
+            String documentName = htmlName.replaceAll("\\.html","");
 
             // Use Jsoup to remove unwanted HTML syntax
             Document doc = Jsoup.parse(htmlDocument);
             String body = doc.body().text();
-            LOG.info("Done with " + url[0]);
+            LOG.info("Read " + htmlName);
 
             body = this.preprocessDocument(body);
-            System.out.println(documentName+" : "+body);
-            this.processDocumentTerms(documentName,body);
+            this.processDocumentTerms(documentName, body);
         }
     }
 
@@ -88,7 +87,7 @@ public class Indexer {
         newDocument.setMaxFrequency(maxFrequency);
         this.allDocuments.add(newDocument);
 
-        System.out.println("Document: "+documentName+", maxFrequency: "+maxFrequency);
+        LOG.info("Document: "+documentName+", maxFrequency: "+maxFrequency);
     }
 
     /**
