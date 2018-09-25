@@ -48,7 +48,7 @@ Proy7.html https://www.xataka.com/especiales/21-proyectos-makers-con-arduino-y-r
 Proy8.html https://www.motorpasion.com/tecnologia/wifi-un-panel-a-lo-tesla-o-una-consola-retro-por-muy-poco-dinero-17-proyectos-para-usar-una-raspberry-pi-en-tu-coche
 Proy9.html https://www.xataka.com/accesorios/las-13-mejores-ideas-que-hemos-encontrado-hechas-con-raspberry-pi
 Proy10.html https://computerhoy.com/noticias/hardware/15-usos-raspberry-pi-que-no-sabias-que-podias-darle-74905
-﻿IA1.html https://es.wikipedia.org/wiki/Inteligencia_artificial
+IA1.html https://es.wikipedia.org/wiki/Inteligencia_artificial
 IA2.html https://www.technologyreview.es/s/7692/el-secreto-mas-oscuro-de-la-inteligencia-artificial-por-que-hace-lo-que-hace
 IA3.html https://www.xataka.com/entrevistas/doy-clases-de-etica-en-inteligencia-artificial-y-esto-es-lo-que-enseno-a-futuros-ingenieros
 IA4.html https://es.unesco.org/courier/2018-3/artificial-intelligence-between-myth-and-reality
@@ -158,16 +158,16 @@ T7.html https://bbvaopen4u.com/es/actualidad/los-frameworks-imprescindibles-para
 T8.html https://blog.faztweb.com/2017/04/los-mejores-frameworks-frontend-de.html
 T9.html https://programacion.net/articulo/lo_que_debes_aprender_en_2017_backend_y_frontend_1687
 T10.html https://comarka.mx/herramientas-desarrollo-front-end/
-CP1.html https://encolombia.com/salud-estetica/obesidad/control-de-peso-y-obesidad/
-CP2.html https://kidshealth.org/es/teens/weight-therapists-esp.html
-CP3.html https://hospital.uillinois.edu/es/primary-and-specialty-care/nutricion-y-bienestar/nuestros-servicios/control-de-peso
-CP4.html https://medlineplus.gov/spanish/weightcontrol.html
-CP5.html https://www.farmaceuticonline.com/es/familia/479-control-del-peso-y-la-obesidad
-CP6.html https://www.bupasalud.com/contenido/salud-bienestar/vida-bupa/ejercicio-control-de-peso
-CP7.html http://scielo.sld.cu/scielo.php?script=sci_arttext&pid=S0864-03002000000200002
-CP8.html https://www.stanfordchildrens.org/es/topic/default?id=control-del-peso-90-P04729
-CP9.html http://www.calacervera.com/publicaciones/articulos/97-control-de-peso
-CP10.html https://www.cdc.gov/healthyweight/spanish/healthyeating/index.html
+CP1.htm https://encolombia.com/salud-estetica/obesidad/control-de-peso-y-obesidad/
+CP2.htm https://kidshealth.org/es/teens/weight-therapists-esp.html
+CP3.htm https://hospital.uillinois.edu/es/primary-and-specialty-care/nutricion-y-bienestar/nuestros-servicios/control-de-peso
+CP4.htm https://medlineplus.gov/spanish/weightcontrol.html
+CP5.htm https://www.farmaceuticonline.com/es/familia/479-control-del-peso-y-la-obesidad
+CP6.htm https://www.bupasalud.com/contenido/salud-bienestar/vida-bupa/ejercicio-control-de-peso
+CP7.htm http://scielo.sld.cu/scielo.php?script=sci_arttext&pid=S0864-03002000000200002
+CP8.htm https://www.stanfordchildrens.org/es/topic/default?id=control-del-peso-90-P04729
+CP9.htm http://www.calacervera.com/publicaciones/articulos/97-control-de-peso
+CP10.htm https://www.cdc.gov/healthyweight/spanish/healthyeating/index.html
 AM1.html https://daenlatecla.com/piano-desde-cero/
 AM2.html https://www.elgrupoinformatico.com/como-aprender-tocar-piano-desde-cero-internet-t43142.html
 AM3.html https://es.wikihow.com/aprender-a-tocar-piano-por-tu-cuenta
@@ -382,9 +382,8 @@ tablaturasguitarra1.html http://www.atame.org/
 tablaturasguitarra2.html http://www.seiscuerdas.org/
 tablaturasguitarra3.html http://www.lacuerda.net/
 tablaturasguitarra4.html http://www.tusacordes.com/
-tablaturasguitarra5.html http://guitara.iespana.es/
+tablaturasguitarra5.html https://lacuerda.net/
 tablaturasguitarra6.html http://www.aulaactual.com/especiales/vihuela/03e.htm
-tablaturasguitarra7.html http://www.geocities.com/sunsetstrip/palms/6797/tablaturas
 tablaturasguitarra8.html http://www.laplazavirtual.com/guitarra/index.htm
 tablaturasguitarra9.html http://www.guitarraonline.com.ar/links2.htm
 tablaturasguitarra10.html http://www.farhat.name/
@@ -404,7 +403,6 @@ origami3.html http://www.netverk.com.ar/~halgall/origami3.htm#El%20plegado%20y%2
 origami4.html http://www.netverk.com.ar/~halgall/origami4.htm#Aprendiendo%20las%20Bases
 origami5.html http://www.netverk.com.ar/~halgall/origami6.htm#Papiroflexia
 origami6.html http://www.netverk.com.ar/~halgall/origami8.htm#algunos%20links%20a
-origami7.html http://design.origami.free.fr/indexspanish.htm
 origami8.html http://www.uaq.mx/matematicas/origami/
 origami9.html http://www.uaq.mx/matematicas/origami/taller1
 origami10.html http://www.uaq.mx/matematicas/origami/galeria1
@@ -427,7 +425,7 @@ murallachina6.html http://es.wikipedia.org/wiki/Gran_Muralla_China#Estado
 murallachina7.html http://es.wikipedia.org/wiki/Gran_Muralla_China#Torres_de_vigilancia_y_barracas
 murallachina8.html http://es.wikipedia.org/wiki/Gran_Muralla_China#Defensa_de_la_muralla
 murallachina9.html http://es.wikipedia.org/wiki/Gran_Muralla_China#Materiales
-murallachina10.htmlhttp://es.wikipedia.org/wiki/Gran_Muralla_China#Reconocimiento_.28desde_el_espacio.29
+murallachina10.html http://es.wikipedia.org/wiki/Gran_Muralla_China#Reconocimiento_.28desde_el_espacio.29
 bonsais1.html http://www.portalbonsai.com/
 bonsais2.html http://www.bonsaiglobal.com/
 bonsais3.html http://bonsaimania.com/

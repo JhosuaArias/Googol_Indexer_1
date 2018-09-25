@@ -1,5 +1,7 @@
 package cr.ac.ucr.ecci;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -12,6 +14,7 @@ public class Indexer {
 
     private Map<String, TermData> vocabulary;
     private List<WebDocument> allDocuments;
+    private static final Logger LOG = LogManager.getLogger(Indexer.class.getName());
 
     public Indexer() {
         this.vocabulary = new HashMap<>();
@@ -27,17 +30,23 @@ public class Indexer {
 
             // Get the name and content of each document
             String[] url = string.split("\\s+");
-            String htmlDocument = FileHandler.readFileSB("./src/main/resources/htmls/" + url[0]);
-            String documentName = url[0].replaceAll("\\.html","");
+            String htmlName = url[0];
+            htmlName = htmlName.replaceAll("\\s+", "")
+                    .replaceAll("\\n", "");
+
+            String htmlDocument = FileHandler.readFileSB("./src/main/resources/htmls/" + htmlName);
+            String documentName = htmlName.replaceAll("\\.html","");
 
             // Use Jsoup to remove unwanted HTML syntax
             Document doc = Jsoup.parse(htmlDocument);
             String body = doc.body().text();
+            LOG.info("Read " + htmlName);
 
             body = this.preprocessDocument(body);
-            //System.out.println(documentName+" : "+body);
-            this.processDocumentTerms(documentName,body);
+            this.processDocumentTerms(documentName, body);
         }
+
+
 
         FileHandler.writeVocabularyFile(this.vocabulary.values(), this.allDocuments.size());
     }
@@ -71,8 +80,7 @@ public class Indexer {
         String[] splitTerms = allTerms.split("\\s+");
 
         for (String term : splitTerms) {
-            termData = this.addToVocabulary(document.getDocumentName(), term);
-            document.addTerm(termData);
+            termData = this.addToVocabulary(document, term);
 
             if(termData.getFrequencyInDocument(documentName) > maxFrequency){
                 maxFrequency = termData.getFrequencyInDocument(documentName);
@@ -82,20 +90,19 @@ public class Indexer {
         document.setMaxFrequency(maxFrequency);
         this.allDocuments.add(document);
 
+        LOG.info("Document: "+documentName+", maxFrequency: "+maxFrequency);
         FileHandler.writeDocumentTok(document);
-
-        //System.out.println("Document: "+documentName+", maxFrequency: "+maxFrequency);
     }
 
     /**
      * Adds a term to the collection's vocabulary.
      * If a term is already registered in the vocabulary map, its number of occurrences is updated.
      * Otherwise, a new TermData object is created to represent that term.
-     * @param documentName
+     * @param document
      * @param term
      * @return a TermData object that represents the term
      */
-    private TermData addToVocabulary(String documentName, String term){
+    private TermData addToVocabulary(WebDocument document, String term){
         TermData newTerm;
 
         if(this.vocabulary.containsKey(term)) {
@@ -103,9 +110,10 @@ public class Indexer {
         }else{
             newTerm = new TermData(term);
             this.vocabulary.put(term,newTerm);
+            document.addTerm(newTerm);
         }
 
-        newTerm.addOccurrenceInDocument(documentName);
+        newTerm.addOccurrenceInDocument(document.getDocumentName());
         return newTerm;
     }
 

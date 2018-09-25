@@ -1,7 +1,12 @@
 package cr.ac.ucr.ecci;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.io.UncheckedIOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -14,6 +19,7 @@ public class FileHandler {
 
     private static StringBuilder sb;
     private static List<String> stringArray;
+    private static final Logger LOG = LogManager.getLogger(FileHandler.class.getName());
 
     public static String readFileSB(String path) {
         sb = new StringBuilder();
@@ -31,12 +37,27 @@ public class FileHandler {
 
     private static void abstractReadFile(String path, Consumer<? super String> appendFunction) {
 
-        try (Stream<String> stream = Files.lines(Paths.get(path))) {
+        Charset[] supportedCharsets = {StandardCharsets.UTF_8, StandardCharsets.ISO_8859_1, Charset.forName("Windows-1252")};
+        boolean fileDecoded = false;
+        for (Charset charset : supportedCharsets) {
+            try (Stream<String> stream = Files.lines(Paths.get(path), charset)) {
 
-            stream.forEach(appendFunction);
+                stream.forEach(appendFunction);
+                fileDecoded = true;
+                break;
 
-        } catch (IOException e) {
-            e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+                LOG.error("Unexpected IO Exception, proceeding to exit the program");
+                System.exit(99);
+            } catch (UncheckedIOException e) {
+                LOG.error("Incorrect encoding " + charset.toString() + " for file " + path);
+            }
+        }
+
+        if (!fileDecoded) {
+            LOG.error("None of the supported encodings were appropriate, exiting program");
+            System.exit(99);
         }
 
     }
@@ -106,7 +127,6 @@ public class FileHandler {
         List<String> lines = new ArrayList<>();
 
         for(TermData termData : vocabulary) {
-
             // Write the term and pad with enough blank spaces
             StringBuilder termColumn = new StringBuilder(termData.getTerm());
             termColumn = FileHandler.padString(termColumn, 31); // 31 to account for blank space
@@ -116,7 +136,7 @@ public class FileHandler {
             frequencyColumn = FileHandler.padString(frequencyColumn, 13); // 13 to account for blank space
 
             // Calculate the inverse frequency
-            Double inverseFrequency = Math.log10(termData.getFrequencyInCollection()/documentCount);
+            Double inverseFrequency = Math.log10((double) documentCount/termData.getFrequencyInCollection());
 
             // Write the normalized frequency
             StringBuilder normalizedFrequencyColumn = new StringBuilder(inverseFrequency.toString());
