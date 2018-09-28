@@ -3,6 +3,7 @@ package cr.ac.ucr.ecci;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.io.UncheckedIOException;
@@ -108,6 +109,10 @@ public class FileHandler {
         lines.add("\n");
 
         try {
+            // Create the directory to contain .tok, in case it does not exist yet.
+            Files.createDirectories(Paths.get("src","main","resources","toks").toAbsolutePath());
+
+            // Write the .tok file
             Files.write(Paths.get("src","main","resources","toks",document.getDocumentName()+".tok").toAbsolutePath(), lines, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
