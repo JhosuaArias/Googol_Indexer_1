@@ -9,10 +9,12 @@ import java.util.Locale;
  */
 public final class Preprocessor {
     // Matches
-    private static final String SPANISH_WORD_PATTERN = "áéíóúñü\\w";
+    private static final String ACCENTED_VOWELS = "áéíóúñü";
+
+    private static final String SPANISH_WORD_PATTERN = ACCENTED_VOWELS+"\\w";
 
     // Matches all the invalid characters
-    private static final String INVALID_SYMBOLS_PATTERN = "[^" + SPANISH_WORD_PATTERN + "\\s]+";
+    private static final String INVALID_SYMBOLS_PATTERN = "([^" + SPANISH_WORD_PATTERN + "\\s]+|\\b_+\\b)";
 
     // Matches all words larger than
     private static final String LARGER_THAN_30_PATTERN = "\\b\\S{31,}\\b";
@@ -27,7 +29,7 @@ public final class Preprocessor {
     private static final String CONJUNCTIONS = "\\b(y|e|ni|o|u|bien|ora|ya|pero|mas|sino|luego|conque|así que|porque|puesto que|ya que|pues|si|que|como|para que|a fin de que|aunque|aun cuando|si bien)\\b";
 
     //Words with numeric start
-    private static final String STRING_WITH_NUMERICAL_START = "\\b[0-9]+["+ SPANISH_WORD_PATTERN +"]+\\b";
+    private static final String STRING_WITH_NUMERICAL_START = "\\b[0-9]+["+ ACCENTED_VOWELS +"A-Za-z]+\\b";
 
     //Numbers range 0-10000
     private static final String  NUMBER_RANGE_0_999999999 = "[0-9]{9,}";

@@ -1,6 +1,7 @@
 package cr.ac.ucr.ecci;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 /**
  * Holds all the data relevant to a document in the collection.
@@ -11,7 +12,7 @@ public class WebDocument {
     private String documentName;
 
     // Holds each term in the collection.
-    private ArrayList<TermData> terms;
+    private TreeSet<TermData> terms;
 
     // The frequency of the term with the highest frequency in the collection.
     private int maxFrequency;
@@ -19,7 +20,7 @@ public class WebDocument {
     public WebDocument(String documentName) {
         this.setDocumentName(documentName);
         this.setMaxFrequency(0);
-        this.setTerms(new ArrayList<>());
+        this.setTerms(new TreeSet<>());
     }
 
     /**
@@ -49,11 +50,11 @@ public class WebDocument {
         this.documentName = documentName;
     }
 
-    public ArrayList<TermData> getTerms() {
+    public TreeSet<TermData> getTerms() {
         return terms;
     }
 
-    public void setTerms(ArrayList<TermData> terms) {
+    public void setTerms(TreeSet<TermData> terms) {
         this.terms = terms;
     }
 }

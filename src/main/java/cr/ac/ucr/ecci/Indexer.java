@@ -5,10 +5,7 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Indexer {
 
@@ -17,7 +14,7 @@ public class Indexer {
     private static final Logger LOG = LogManager.getLogger(Indexer.class.getName());
 
     public Indexer() {
-        this.vocabulary = new HashMap<>();
+        this.vocabulary = new TreeMap<>();
         this.allDocuments = new ArrayList<>();
     }
 

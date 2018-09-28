@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * Holds all the data relevant to one term in the collection.
  */
-public class TermData {
+public class TermData implements Comparable {
     // A String representation of the term
     private String term;
 
@@ -67,5 +67,10 @@ public class TermData {
 
     public Integer getFrequencyInDocument(String documentName) {
         return frequencyPerDocument.get(documentName);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        return this.term.compareTo(((TermData)o).getTerm());
     }
 }
