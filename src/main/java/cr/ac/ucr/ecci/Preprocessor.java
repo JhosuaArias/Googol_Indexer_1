@@ -38,7 +38,7 @@ public final class Preprocessor {
      * @param document the document to process.
      * @return the document without terms larger than 30 chars long.
      */
-    public static String removeTerms30(String document) {
+    public static String removeTermsLongerThan30(String document) {
         return document.replaceAll(LARGER_THAN_30_PATTERN, "");
     }
 
@@ -74,7 +74,7 @@ public final class Preprocessor {
      * @param document the document to process.
      * @return the document without invalid numbers.
      */
-    public static  String removeNumberTooHigh(String document){
+    public static  String removeNumbersGreaterThan999999999(String document){
         return document.replaceAll(NUMBER_RANGE_0_999999999,"");
     }
 

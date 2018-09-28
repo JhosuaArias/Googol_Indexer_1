@@ -54,11 +54,11 @@ public class Indexer {
      * @return a preproccesed document.
      */
     private String preprocessDocument(String document){
-        document = Preprocessor.removeTerms30(document);
+        document = Preprocessor.removeTermsLongerThan30(document);
         document = Preprocessor.toLowerCase(document);
         document = Preprocessor.removeInvalidTerms(document);
         document = Preprocessor.removeTermsStartsNumeric(document);
-        document = Preprocessor.removeNumberTooHigh(document);
+        document = Preprocessor.removeNumbersGreaterThan999999999(document);
         document = Preprocessor.removeStopWords(document);
         return document;
     }
