@@ -105,9 +105,6 @@ public class FileHandler {
             lines.add(line);
         }
 
-        // Add the line skip at the end
-        lines.add("\n");
-
         try {
             // Create the directory to contain .tok, in case it does not exist yet.
             Files.createDirectories(Paths.get("src","main","resources","toks").toAbsolutePath());
@@ -142,14 +139,13 @@ public class FileHandler {
             frequencyColumn = FileHandler.padString(frequencyColumn, 13); // 13 to account for blank space
 
             // Calculate the inverse frequency
-            int frequencyInCollection = termData.getFrequencyInCollection();
-            Double inverseFrequency = Math.log10((double) documentCount/ frequencyInCollection);
+            Double inverseFrequency = Math.log10((double) documentCount/termData.getFrequencyInCollection());
 
             // Write the normalized frequency
             StringBuilder normalizedFrequencyColumn = new StringBuilder(inverseFrequency.toString());
             normalizedFrequencyColumn = FileHandler.padString(normalizedFrequencyColumn, 20); // this line should not have an extra space
 
-            // Concatenate and add the line skip
+            // Build a string from the three StringBuilders to create the line
             String line = termColumn.toString() + frequencyColumn.toString() + normalizedFrequencyColumn.toString();
             lines.add(line);
         }
