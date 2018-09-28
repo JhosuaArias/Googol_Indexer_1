@@ -93,7 +93,7 @@ public class FileHandler {
             frequencyColumn = FileHandler.padString(frequencyColumn, 13); // 13 to account for blank space
 
             // Calculate max frequency
-            Double maxFrequency = termData.normalizeFrequency(document.getDocumentName(),document.getMaxFrequency());
+            Double maxFrequency = termData.getNormalizedFrequency(document.getDocumentName(),document.getMaxFrequency());
 
             // Write the normalized frequency
             StringBuilder normalizedFrequencyColumn = new StringBuilder(maxFrequency.toString());

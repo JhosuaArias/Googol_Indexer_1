@@ -1,6 +1,7 @@
 package cr.ac.ucr.ecci;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Holds all the data relevant to one term in the collection.
@@ -10,7 +11,7 @@ public class TermData {
     private String term;
 
     // The occurrences of the term in each document in the collection
-    private HashMap<String, Integer> frequencyPerDocument;
+    private Map<String, Integer> frequencyPerDocument;
 
     // Frequency in all documentNames (n_i)
     private Integer frequencyInCollection;
@@ -21,7 +22,7 @@ public class TermData {
         this.setFrequencyInCollection(1);
     }
 
-    public double normalizeFrequency(String documentName, double maxFrequency){
+    public double getNormalizedFrequency(String documentName, double maxFrequency){
         return ((double)this.frequencyPerDocument.get(documentName)) / maxFrequency;
     }
 

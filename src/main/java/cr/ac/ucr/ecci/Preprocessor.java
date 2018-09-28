@@ -74,7 +74,7 @@ public final class Preprocessor {
      * @param document the document to process.
      * @return the document without invalid numbers.
      */
-    public static  String removeNumberToHigh(String document){
+    public static  String removeNumberTooHigh(String document){
         return document.replaceAll(NUMBER_RANGE_0_999999999,"");
     }
 

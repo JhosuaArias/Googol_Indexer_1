@@ -45,9 +45,6 @@ public class Indexer {
             body = this.preprocessDocument(body);
             this.processDocumentTerms(documentName, body);
         }
-
-
-
         FileHandler.writeVocabularyFile(this.vocabulary.values(), this.allDocuments.size());
     }
 
@@ -61,7 +58,7 @@ public class Indexer {
         document = Preprocessor.toLowerCase(document);
         document = Preprocessor.removeInvalidTerms(document);
         document = Preprocessor.removeTermsStartsNumeric(document);
-        document = Preprocessor.removeNumberToHigh(document);
+        document = Preprocessor.removeNumberTooHigh(document);
         document = Preprocessor.removeStopWords(document);
         return document;
     }
