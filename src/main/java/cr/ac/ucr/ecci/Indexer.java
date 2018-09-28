@@ -77,6 +77,11 @@ public class Indexer {
         String[] splitTerms = allTerms.split("\\s+");
 
         for (String term : splitTerms) {
+
+            // Ignore empty strings
+            if(term.equals(""))
+                continue;
+
             termData = this.addToVocabulary(document, term);
 
             if(termData.getFrequencyInDocument(documentName) > maxFrequency){

@@ -18,3 +18,6 @@ out
 *.iws
 *.iml
 
+# Program's output
+*.tok
+*.txt

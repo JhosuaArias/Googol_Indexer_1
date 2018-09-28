@@ -132,6 +132,7 @@ public class FileHandler {
         List<String> lines = new ArrayList<>();
 
         for(TermData termData : vocabulary) {
+
             // Write the term and pad with enough blank spaces
             StringBuilder termColumn = new StringBuilder(termData.getTerm());
             termColumn = FileHandler.padString(termColumn, 31); // 31 to account for blank space
@@ -141,7 +142,8 @@ public class FileHandler {
             frequencyColumn = FileHandler.padString(frequencyColumn, 13); // 13 to account for blank space
 
             // Calculate the inverse frequency
-            Double inverseFrequency = Math.log10((double) documentCount/termData.getFrequencyInCollection());
+            int frequencyInCollection = termData.getFrequencyInCollection();
+            Double inverseFrequency = Math.log10((double) documentCount/ frequencyInCollection);
 
             // Write the normalized frequency
             StringBuilder normalizedFrequencyColumn = new StringBuilder(inverseFrequency.toString());
@@ -153,7 +155,7 @@ public class FileHandler {
         }
 
         try {
-            Files.write(Paths.get("src","main","resources","Vocabulario.tok").toAbsolutePath(), lines, StandardCharsets.UTF_8);
+            Files.write(Paths.get("src","main","resources","Vocabulario.txt").toAbsolutePath(), lines, StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }
