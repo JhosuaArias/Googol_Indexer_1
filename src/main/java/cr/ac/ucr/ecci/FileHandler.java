@@ -3,7 +3,6 @@ package cr.ac.ucr.ecci;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.io.UncheckedIOException;

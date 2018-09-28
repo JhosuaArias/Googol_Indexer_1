@@ -1,6 +1,5 @@
 package cr.ac.ucr.ecci;
 
-import java.util.ArrayList;
 import java.util.TreeSet;
 
 /**

@@ -5,7 +5,10 @@ import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.util.*;
+import java.util.TreeMap;
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Indexer {
 
