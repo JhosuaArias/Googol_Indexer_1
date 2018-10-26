@@ -112,9 +112,12 @@ public class Indexer {
         }else{
             newTerm = new TermData(term);
             this.vocabulary.put(term,newTerm);
-            document.addTerm(newTerm);
+
         }
 
+        if(!document.getTerms().contains(newTerm)) {
+            document.addTerm(newTerm);
+        }
         newTerm.addOccurrenceInDocument(document.getDocumentName());
         return newTerm;
     }
