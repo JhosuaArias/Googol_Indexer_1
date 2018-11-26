@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.util.TreeMap;
 import java.util.Map;
@@ -34,11 +35,14 @@ public class Indexer {
             htmlName = htmlName.replaceAll("\\s+", "")
                     .replaceAll("\\n", "");
 
-            String htmlDocument = FileHandler.readFileSB("./src/main/resources/htmls/" + htmlName);
+            String htmlDocument = FileHandler.readFileSB("./src/main/resources/htmls/"+htmlName);
             String documentName = htmlName.replaceAll("\\.html","");
 
             // Use Jsoup to remove unwanted HTML syntax
             Document doc = Jsoup.parse(htmlDocument);
+            Element bodyElement = doc.body();
+            if(bodyElement == null)
+                System.out.println("mks");
             String body = doc.body().text();
             LOG.info("Read " + htmlName);
 

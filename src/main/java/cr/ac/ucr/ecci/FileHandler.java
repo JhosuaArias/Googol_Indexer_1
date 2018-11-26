@@ -138,7 +138,11 @@ public class FileHandler {
             frequencyColumn = FileHandler.padString(frequencyColumn, 13); // 13 to account for blank space
 
             // Calculate the inverse frequency
-            Double inverseFrequency = Math.log10((double) documentCount/termData.getFrequencyInCollection());
+            Double inverseFrequency = Math.log((double) documentCount/termData.getDocumentCount());
+            if(inverseFrequency < 0){
+                int a = termData.getDocumentCount();
+                System.out.println("docCount "+documentCount+", ni "+ a);
+            }
 
             // Write the normalized frequency
             StringBuilder normalizedFrequencyColumn = new StringBuilder(inverseFrequency.toString());
